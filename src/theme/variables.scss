@@ -3,7 +3,14 @@
 
 // Font path is used to include ionicons,
 // roboto, and noto sans fonts
+
+$blue: #01557d;
+$red: #c12037;
+$white: #ffffff;
+
+
 $font-path: "../assets/fonts";
+
 
 
 // The app direction is used to include
@@ -72,6 +79,7 @@ $colors: (
 
 @import "ionic.theme.default";
 
+$toolbar-background: $red;
 
 // Ionicons
 // --------------------------------------------------
