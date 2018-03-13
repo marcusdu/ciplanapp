@@ -1,3 +1,22 @@
 page-about {
 
+    .tools{
+        background: $red;
+        color: $white;
+
+        .toolbar-title{
+            color: $white;
+        }
+    }
+
+    .title-list{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: $blue;
+        font-size: 1.8rem;
+    }
+
+    .hours{
+        color: $red;
+    }
+
 }

@@ -1,11 +1,42 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      About
+    <ion-title class="tools">
+      Entregas a serem feitas
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
+      <ion-list>
+          <ion-item>
+            <ion-thumbnail item-start>
+                <img src="../../assets/imgs/profile.png">
+            </ion-thumbnail>
+            <h2 class="title-list">
+                Entrega - Samambaia
+              </h2>
+            <h3 class="hours">
+                <ion-icon name="stopwatch"></ion-icon>
+                Entregar às: 14:00h
+            </h3>
+            <button ion-button clear item-end (click)="detail()">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+              <ion-thumbnail item-start>
+                  <img src="../../assets/imgs/profile.png">
+              </ion-thumbnail>
+              <h2 class="title-list">
+                  Entrega - Sobradinho
+                </h2>
+              <h3 class="hours">
+                  <ion-icon name="stopwatch"></ion-icon>
+                  Entregar às: 14:00h
+              </h3>
+              <button ion-button clear item-end>
+                <ion-icon name="add" (click)="detail()"></ion-icon>
+              </button>
+            </ion-item>
+        </ion-list>
 </ion-content>
