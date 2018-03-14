@@ -1,7 +1,7 @@
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Component } from '@angular/core';
 import { NavController,AlertController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
-// import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
@@ -17,23 +17,9 @@ export class HomePage
 {
   lastImage: string = null;
   loading: Loading;
-  //constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner,  public alertCtrl: AlertController) 
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) { }
+  constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, private imgPickr: ImagePicker) { }
 
-<<<<<<< HEAD
-  constructor(
-    public navCtrl: NavController,
-    private barcodeScanner: BarcodeScanner, 
-    public alertCtrl: AlertController,
-    private imgPicker : ImagePicker
-  ) 
-  {
-
-  }
-  public barcodeData;
-=======
  // public barcodeData;
->>>>>>> 11d8d8805e8a0b3d121bd92345a64775281f3c84
   
   // scan()
   // {
@@ -204,7 +190,7 @@ export class HomePage
       quality : 100
     };
 
-    this.imgPicker.getPictures(options).then((result) => {
+    this.imgPickr.getPictures(options).then((result) => {
       for (let i = 0; i < result.length; i++) {
         console.log(  result[i] );
       }
