@@ -18,9 +18,6 @@ export class HomePage
 {
   lastImage: string = null;
   loading: Loading;
-<<<<<<< HEAD
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, private imgPickr: ImagePicker) { }
-=======
   captureDataUrl:string;
   error:string = "";
   //constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner,  public alertCtrl: AlertController) 
@@ -35,7 +32,6 @@ export class HomePage
     public platform: Platform, 
     public loadingCtrl: LoadingController,
     private api:ApiService) { }
->>>>>>> ae13f2ef36f1ff7511c2c30e7f1facf6018df1fd
 
  // public barcodeData;
   
@@ -212,18 +208,6 @@ export class HomePage
       this.loading.dismissAll()
       this.presentToast(`Error while uploading file`);
     });
-  }
-
-  gallery(){
-    let options = {
-      quality : 100
-    };
-
-    this.imgPickr.getPictures(options).then((result) => {
-      for (let i = 0; i < result.length; i++) {
-        console.log(  result[i] );
-      }
-    })
   }
 
 }
