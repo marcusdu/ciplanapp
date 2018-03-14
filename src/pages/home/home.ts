@@ -1,6 +1,8 @@
+import { ImagePicker } from '@ionic-native/image-picker';
 import { Component } from '@angular/core';
 import { NavController,AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 
 @Component({
   selector: 'page-home',
@@ -9,7 +11,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 export class HomePage 
 {
 
-  constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner,  public alertCtrl: AlertController) 
+  constructor(
+    public navCtrl: NavController,
+    private barcodeScanner: BarcodeScanner, 
+    public alertCtrl: AlertController,
+    private imgPicker : ImagePicker
+  ) 
   {
 
   }
@@ -56,4 +63,17 @@ export class HomePage
     });
 
   }
+
+  gallery(){
+    let options = {
+      quality : 100
+    };
+
+    this.imgPicker.getPictures(options).then((result) => {
+      for (let i = 0; i < result.length; i++) {
+        console.log(  result[i] );
+      }
+    })
+  }
+
 }
