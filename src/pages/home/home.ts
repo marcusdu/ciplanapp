@@ -1,3 +1,4 @@
+import { ImagePicker } from '@ionic-native/image-picker';
 import { Component } from '@angular/core';
 import { NavController,AlertController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
 // import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -7,6 +8,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import {ApiService} from '../../shared/http-service';
 declare var cordova: any;
+
 
 @Component({
   selector: 'page-home',
@@ -31,7 +33,20 @@ export class HomePage
     public loadingCtrl: LoadingController,
     private api:ApiService) { }
 
+<<<<<<< HEAD
+  constructor(
+    public navCtrl: NavController,
+    private barcodeScanner: BarcodeScanner, 
+    public alertCtrl: AlertController,
+    private imgPicker : ImagePicker
+  ) 
+  {
+
+  }
+  public barcodeData;
+=======
  // public barcodeData;
+>>>>>>> 11d8d8805e8a0b3d121bd92345a64775281f3c84
   
   // scan()
   // {
@@ -207,4 +222,17 @@ export class HomePage
       this.presentToast(`Error while uploading file`);
     });
   }
+
+  gallery(){
+    let options = {
+      quality : 100
+    };
+
+    this.imgPicker.getPictures(options).then((result) => {
+      for (let i = 0; i < result.length; i++) {
+        console.log(  result[i] );
+      }
+    })
+  }
+
 }

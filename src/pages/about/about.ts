@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ViewController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { ModalInformationComponent } from '../../components/modal-information/modal-information';
 
 

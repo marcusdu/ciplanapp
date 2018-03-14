@@ -1,3 +1,5 @@
+import { ImagePicker } from '@ionic-native/image-picker';
+import { LoginPage } from './../pages/login/login';
 import { ModalInformationComponent } from './../components/modal-information/modal-information';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,7 +32,8 @@ import {ApiService} from '../shared/http-service';
     ContactPage,
     HomePage,
     TabsPage,
-    ModalInformationComponent
+    ModalInformationComponent,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {ApiService} from '../shared/http-service';
     ContactPage,
     HomePage,
     TabsPage,
-    ModalInformationComponent
+    ModalInformationComponent,
+    LoginPage
   ],
   providers: [
     StatusBar,
