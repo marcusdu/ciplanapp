@@ -4,11 +4,11 @@
     <img src="assets/imgs/brand.png" alt="">
   </div>
 
-  <ion-content padding>
+  <!-- <ion-content padding>
     <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
     <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
-  </ion-content>
-  
+  </ion-content> -->
+  {{error}}
   <div class="actions">
     <button (click)="scan()" class="btn-scanner">
       <div>

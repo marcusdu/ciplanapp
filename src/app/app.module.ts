@@ -3,6 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import {HttpModule} from '@angular/http';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -18,6 +19,10 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera'
 
+
+
+import {ApiService} from '../shared/http-service';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -29,7 +34,8 @@ import { Camera } from '@ionic-native/camera'
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,6 +55,7 @@ import { Camera } from '@ionic-native/camera'
     Transfer,
     Camera,
     FilePath,
+    ApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
