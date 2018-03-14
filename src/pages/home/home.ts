@@ -1,11 +1,8 @@
-import { ImagePicker } from '@ionic-native/image-picker';
 import { Component } from '@angular/core';
 import { NavController,AlertController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
-// import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
-import { Camera } from '@ionic-native/camera';
+import { File,FileEntry } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import {ApiService} from '../../shared/http-service';
 declare var cordova: any;
 
@@ -20,168 +17,80 @@ export class HomePage
   loading: Loading;
   captureDataUrl:string;
   error:string = "";
-  //constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner,  public alertCtrl: AlertController) 
+  imageURI: any;
+  imageTitle: any;
+
+
   constructor(
     public navCtrl: NavController, 
     private camera: Camera, 
-    private transfer: Transfer, 
+    private transfer: FileTransfer, 
     private file: File, 
-    private filePath: FilePath, 
     public actionSheetCtrl: ActionSheetController, 
     public toastCtrl: ToastController, 
     public platform: Platform, 
     public loadingCtrl: LoadingController,
-    private api:ApiService) { }
+    private api:ApiService
+) { }
 
-<<<<<<< HEAD
-  constructor(
-    public navCtrl: NavController,
-    private barcodeScanner: BarcodeScanner, 
-    public alertCtrl: AlertController,
-    private imgPicker : ImagePicker
-  ) 
+  public fromGallery()
   {
-
+    this.camera.getPicture({
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 100,
+      encodingType: this.camera.EncodingType.JPEG,
+    }).then(imageData => {
+      this.imageURI = imageData;
+      this.uploadPhoto(imageData);
+    }, error => {
+      this.error = JSON.stringify(error);
+    });
   }
-  public barcodeData;
-=======
- // public barcodeData;
->>>>>>> 11d8d8805e8a0b3d121bd92345a64775281f3c84
-  
-  // scan()
-  // {
-  //   const options = 
-  //   {
-  //     preferFrontCamera: false, // iOS and Android
-  //     showFlipCameraButton: true, // iOS and Android
-  //     showTorchButton: true, // iOS and Android
-  //     torchOn: false, // Android, launch with the torch switched on (if available)
-  //     prompt: 'Place a barcode inside the scan area', // Android
-  //       // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-  //     resultDisplayDuration: 500,
 
-  //       // Android only (portrait|landscape), default unset so it rotates with the device
-  //     orientation: 'portrait',
-  //     disableAnimations: true, // iOS
-  //     disableSuccessBeep: false // iOS
-  //   };
+  public capturePhoto()
+  {
+    this.camera.getPicture({
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.JPEG,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      this.imageURI = imageData;
+      this.uploadPhoto(imageData);
+    }, error => {
+      this.error = JSON.stringify(error);
+    });
+  }
 
-  //   this.barcodeScanner
-  //   .scan(options)
-  //   .then((data) => 
-  //   {
-  //     this.barcodeData = data;
-  //     const alert = this.alertCtrl.create({
-  //       title: 'Scan Results',
-  //       subTitle: data.text,
-  //       buttons: ['OK']
-  //     });
-  //     alert.present();
-  //   })
-  //   .catch((err) => 
-  //   {
-  //     const alert = this.alertCtrl.create({
-  //       title: 'Attention!',
-  //       subTitle: err,
-  //       buttons: ['Close']
-  //     });
-  //     alert.present();
-  //   });
-
-  // }
   public takePicture(sourceType) 
   {
-    // Create options for the Camera Dialog
-    var options = 
+    let options: CameraOptions = 
     {
       quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: sourceType,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      allowEdit: true,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: false
     };
-   
-    // Get the data of an image
+ 
+ 
+    this.camera.getPicture(options).then((img) => 
+    {
+      this.imageURI = img;
+      this.uploadPhoto(img);
+    }).catch((reason) => {
+      console.log(reason);
+    });
 
-    this.camera.getPicture(options).then((imageData) => 
-    {
-      this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
-      this.uploadImage();
-    }, (err) => 
-    {
-      // Handle error
-    });
-    // this.camera.getPicture(options).then((imagePath) => 
-    // {
-    //   // Special handling for Android library
-    //   if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) 
-    //   {
-    //     this.filePath.resolveNativePath(imagePath)
-    //       .then(filePath => {
-    //         let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-    //         let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-    //         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    //       });
-    //   } else 
-    //   {
-    //     var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-    //     var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-    //     this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    //   }
-    // }, (err) => 
-    // {
-    //   this.presentToast('Error while selecting image.');
-    // });
   }
-  public presentActionSheet() 
-  {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Selecione uma opção',
-      buttons: [
-        {
-          text: 'Carregar da Galeria',
-          handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-          }
-        },
-        {
-          text: 'Tirar uma foto',
-          handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
-          }
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        }
-      ]
-    });
-    actionSheet.present();
-  }
+ 
 
-  private createFileName() 
-  {
-    var d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
-    return newFileName;
-  }
-   
-  // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) 
-  {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName)
-    .then(success => 
-    {
-      this.lastImage = newFileName;
-    }, error => 
-    {
-      this.presentToast('Error while storing file.');
-    });
-  }
-   
+  
   private presentToast(text) 
   {
     let toast = this.toastCtrl.create({
@@ -192,47 +101,75 @@ export class HomePage
     toast.present();
   }
    
-  // Always get the accurate path to your apps folder
-  public pathForImage(img) 
-  {
-    if (img === null) {
-      return '';
-    } else {
-      return cordova.file.dataDirectory + img;
-    }
-  }
+  
+  // doImageUpload() 
+  // {
+  //   let loader = this.loadingCtrl.create({
+  //     content: "Carre..."
+  //   });
 
-  public uploadImage() 
+
+
+  //   let filename = this.imageURI.split('/').pop();
+  //   const fileTransfer: FileTransferObject = this.transfer.create();
+ 
+  //   let options: FileUploadOptions = 
+  //   {
+  //     fileKey: "file",
+  //     fileName: filename,
+  //     chunkedMode: false,
+  //     mimeType: "image/jpg",
+  //     params: { 'title': "imageTitle"}
+  //   };
+ 
+  //   loader.present();
+    
+  //  this.api.upload(this.imageURI).subscribe((res)=>
+  //   {
+  //     this.loading.dismissAll()
+  //     this.presentToast("sucesso");
+  //   },(err)=>
+  //   {
+  //     this.loading.dismissAll()
+  //     this.presentToast(`erro ${JSON.stringify(err)}`);
+  //   });
+ 
+  // } 
+
+  private uploadPhoto(imageFileUri: any): void 
   {
-   
+    this.error = null;
     this.loading = this.loadingCtrl.create({
-      content: 'Enviando...',
+      content: 'Carregando...'
     });
+
     this.loading.present();
-   
-    // Use the FileTransfer to upload the image
-    this.api.uploadImage(this.captureDataUrl)
-    .subscribe(data => 
-      {
-      this.loading.dismissAll()
-      this.presentToast('Image succesful uploaded.');
-    }, err => {
-      this.error = JSON.stringify(err);
-      this.loading.dismissAll()
-      this.presentToast(`Error while uploading file`);
-    });
+
+    this.file.resolveLocalFilesystemUrl(imageFileUri)
+      .then(entry => (<FileEntry>entry).file(file => this.readFile(file)))
+      .catch(err => console.log(err));
+  
   }
 
-  gallery(){
-    let options = {
-      quality : 100
+  private readFile(file: any) 
+  {
+    const reader = new FileReader();
+
+    reader.onloadend = () => 
+    {
+      const formData = new FormData();
+      const imgBlob = new Blob([reader.result], {type: file.type});
+      formData.append('file', imgBlob, file.name);
+        this.api.upload(formData).subscribe((res)=>
+        {
+          this.loading.dismissAll()
+          this.presentToast("sucesso");
+        },(err)=>
+        {
+          this.loading.dismissAll()
+          this.presentToast(`erro ${JSON.stringify(err)}`);
+        })
     };
-
-    this.imgPicker.getPictures(options).then((result) => {
-      for (let i = 0; i < result.length; i++) {
-        console.log(  result[i] );
-      }
-    })
+    reader.readAsArrayBuffer(file);
   }
-
 }

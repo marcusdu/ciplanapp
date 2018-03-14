@@ -1,4 +1,4 @@
-import { ImagePicker } from '@ionic-native/image-picker';
+
 import { LoginPage } from './../pages/login/login';
 import { ModalInformationComponent } from './../components/modal-information/modal-information';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -17,8 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { File } from '@ionic-native/file';
-import { Transfer } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera'
 
 
@@ -55,10 +54,10 @@ import {ApiService} from '../shared/http-service';
     SplashScreen,
     Camera,
     BarcodeScanner,
+    FileTransfer,
+    FileTransferObject,
     File,
-    Transfer,
     Camera,
-    FilePath,
     ApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

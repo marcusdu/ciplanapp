@@ -8,9 +8,10 @@
     <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
     <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
   </ion-content> -->
-  {{error}}
+  {{imageURI}}
+
   <div class="actions">
-    <button (click)="scan()" class="btn-scanner">
+    <button (click)="capturePhoto()" class="btn-scanner">
       <div>
         <ion-icon class="icon-btn" ios="ios-qr-scanner" md="md-qr-scanner"></ion-icon>
       </div>
@@ -18,7 +19,7 @@
     </button>
   </div>
   <div class="actions">
-    <button (click)="presentActionSheet()" class="btn-photo">
+    <button (click)="fromGallery()" class="btn-photo">
       <div>
         <ion-icon class="icon-btn" name="images"></ion-icon>
       </div>
