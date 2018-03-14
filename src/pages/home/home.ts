@@ -1,8 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController,AlertController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
+<<<<<<< HEAD
 import { File,FileEntry } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+=======
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { File } from '@ionic-native/file';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+>>>>>>> d7c035bf2041a998151c4e2b6eb28529441298d3
 import {ApiService} from '../../shared/http-service';
 declare var cordova: any;
 
@@ -33,6 +41,7 @@ export class HomePage
     private api:ApiService
 ) { }
 
+<<<<<<< HEAD
   public fromGallery()
   {
     this.camera.getPicture({
@@ -47,6 +56,27 @@ export class HomePage
       this.error = JSON.stringify(error);
     });
   }
+=======
+ // public barcodeData;
+  
+  // scan()
+  // {
+  //   const options = 
+  //   {
+  //     preferFrontCamera: false, // iOS and Android
+  //     showFlipCameraButton: true, // iOS and Android
+  //     showTorchButton: true, // iOS and Android
+  //     torchOn: false, // Android, launch with the torch switched on (if available)
+  //     prompt: 'Place a barcode inside the scan area', // Android
+  //       // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+  //     resultDisplayDuration: 500,
+
+  //       // Android only (portrait|landscape), default unset so it rotates with the device
+  //     orientation: 'portrait',
+  //     disableAnimations: true, // iOS
+  //     disableSuccessBeep: false // iOS
+  //   };
+>>>>>>> d7c035bf2041a998151c4e2b6eb28529441298d3
 
   public capturePhoto()
   {
@@ -151,6 +181,7 @@ export class HomePage
   
   }
 
+<<<<<<< HEAD
   private readFile(file: any) 
   {
     const reader = new FileReader();
@@ -172,4 +203,6 @@ export class HomePage
     };
     reader.readAsArrayBuffer(file);
   }
+=======
+>>>>>>> d7c035bf2041a998151c4e2b6eb28529441298d3
 }
