@@ -19,7 +19,7 @@
                 <ion-icon name="stopwatch"></ion-icon>
                 Entregar às: 14:00h
             </h3>
-            <button ion-button clear item-end (click)="detail()">
+            <button ion-button clear item-end (click)="detail({title: 'Entrega agendada', local:'Samambaia', Endereco: 'QR 120, Conjunto 10', Prioridade: 'Alta'})">
               <ion-icon name="add"></ion-icon>
             </button>
           </ion-item>
@@ -35,7 +35,7 @@
                   Entregar às: 14:00h
               </h3>
               <button ion-button clear item-end>
-                <ion-icon name="add" (click)="detail()"></ion-icon>
+                <ion-icon name="add" (click)="detail({title: 'Entrega agendada', local:'Samambaia', Endereco: 'QR 120, Conjunto 10', Prioridade: 'Alta'})"></ion-icon>
               </button>
             </ion-item>
         </ion-list>

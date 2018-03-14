@@ -13,8 +13,8 @@ export class AboutPage {
 
   }
 
-  detail(){
-    let detail = this.modalCtrl.create(ModalInformationComponent);
+  detail(objeto:object){
+    let detail = this.modalCtrl.create(ModalInformationComponent, {detail: objeto});
     detail.present();
   }
 

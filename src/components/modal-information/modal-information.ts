@@ -1,4 +1,4 @@
-import { ModalController, ViewController } from 'ionic-angular';
+import { ModalController, ViewController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ModalInformationComponent {
 
-  text: string;
+  detail: object;
 
-  constructor( public modalCtrl: ModalController, public ViewCtrl: ViewController) {
-    
+  constructor( public modalCtrl: ModalController, public ViewCtrl: ViewController, private param:NavParams) {
+    this.detail = param.get('detail');
   }
 
   closeModal(){
