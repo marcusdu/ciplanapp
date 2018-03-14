@@ -4,6 +4,11 @@
     <img src="assets/imgs/brand.png" alt="">
   </div>
 
+  <ion-content padding>
+    <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+    <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+  </ion-content>
+  
   <div class="actions">
     <button (click)="scan()" class="btn-scanner">
       <div>
@@ -13,7 +18,7 @@
     </button>
   </div>
   <div class="actions">
-    <button (click)="sendPhoto()" class="btn-photo">
+    <button (click)="presentActionSheet()" class="btn-photo">
       <div>
         <ion-icon class="icon-btn" name="images"></ion-icon>
       </div>
