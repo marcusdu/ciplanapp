@@ -143,10 +143,12 @@ displayNetworkUpdate(connectionState: string)
         {
           this.loading.dismissAll()
           this.presentToast("Enviado com sucesso!");
+          this.error = JSON.stringify(res);
         },(err)=>
         {
           this.loading.dismissAll()
           this.presentToast(`Ocorreu um erro ao enviar o comprovante.`);
+          this.error = JSON.stringify(err);
         })
     };
     reader.readAsArrayBuffer(file);
