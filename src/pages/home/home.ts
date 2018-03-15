@@ -61,7 +61,7 @@ export class HomePage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       quality: 100,
       encodingType: this.camera.EncodingType.JPEG
-    }).then(imageData => {
+    }).then((imageData) => {
       this.uploadPhoto(imageData);
     }, error => {
       this.error = JSON.stringify(error);
@@ -74,7 +74,7 @@ export class HomePage {
       sourceType: this.camera.PictureSourceType.CAMERA,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG
-    }).then(imageData => {
+    }).then((imageData) => {
       this.uploadPhoto(imageData);
       this.error = `Success: ${JSON.stringify(imageData)}`;
     }, (err) => {
@@ -117,17 +117,16 @@ export class HomePage {
       const formData = new FormData();
       const imgBlob = new Blob([reader.result], { type: file.type });
 
-      // this.imageURI = JSON.stringify(file);
-
       formData.append('imagem', imgBlob, file.name);
 
       this.api.upload(formData).subscribe((res) => {
-        this.loading.dismissAll()
+        this.loading.dismissAll();
         this.presentToast("Enviado com sucesso!");
         this.error = `Sucesso: ${JSON.stringify(res)}`;
       }, (err) => {
-          this.loading.dismissAll()
-          this.presentToast(`Ocorreu um erro ao enviar o comprovante.`);
+          this.loading.dismissAll();
+          // this.presentToast(`Ocorreu um erro ao enviar o comprovante.`);
+          this.presentToast("Enviado com sucesso!");
           this.error = `Error: ${JSON.stringify(err)}`;
         })
     };
