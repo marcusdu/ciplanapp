@@ -127,6 +127,16 @@ displayNetworkUpdate(connectionState: string)
   
   }
 
+  private makeId(){
+      let text: string;
+      let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+      for (let i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    
+      return text;
+  }
+
   private readFile(file: any) 
   {
     const reader = new FileReader();
@@ -138,7 +148,7 @@ displayNetworkUpdate(connectionState: string)
 
      // this.imageURI = JSON.stringify(file);
 
-        formData.append('imagem', imgBlob, file.name);
+        formData.append('imagem', imgBlob, `${this.makeId()}.jpg`);
 
         this.api.upload(formData).subscribe((res)=>
         {
