@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
+import { NavController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
 import { File,FileEntry } from '@ionic-native/file';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import {ApiService} from '../../shared/http-service';
 import { Network } from '@ionic-native/network';
 import { Subscription} from 'rxjs/Subscription';
-
-declare var cordova: any;
 
 
 @Component({
@@ -30,7 +27,6 @@ export class HomePage
   (
     public navCtrl: NavController, 
     private camera: Camera, 
-    private transfer: FileTransfer, 
     private file: File, 
     public actionSheetCtrl: ActionSheetController, 
     public toastCtrl: ToastController, 
@@ -62,7 +58,6 @@ ionViewWillLeave()
 
 displayNetworkUpdate(connectionState: string)
 {
-  let networkType = this.network.type;
   this.presentToast(`Status da conexão: ${connectionState}`);
 }
 
