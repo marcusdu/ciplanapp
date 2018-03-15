@@ -19,7 +19,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera } from '@ionic-native/camera'
-
+import { Network } from '@ionic-native/network';
 
 
 import {ApiService} from '../shared/http-service';
@@ -59,6 +59,7 @@ import {ApiService} from '../shared/http-service';
     File,
     Camera,
     ApiService,
+    Network,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

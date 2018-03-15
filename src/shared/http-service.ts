@@ -13,14 +13,10 @@ export class ApiService
 
     constructor(private http: Http) { }
 
-    upload(image:any)
+    upload(image:FormData)
     {
-        // let data = new FormData();
-        // data.append('imagem', image[0], image[0]['name']);
-
-        return this.http.post(`${this.url}`,image, new RequestOptions({ headers: new Headers(
-            {
-                'Content-Type':'multipart/form-data',
+        return this.http.post(`${this.url}`,image, new RequestOptions({ headers: new Headers
+            ({
                 'Accept': 'application/json'
             })}));  
     }
