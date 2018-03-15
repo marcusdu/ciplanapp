@@ -64,6 +64,7 @@ displayNetworkUpdate(connectionState: string)
 
   public fromGallery()
   {
+    debugger;
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -143,12 +144,12 @@ displayNetworkUpdate(connectionState: string)
         {
           this.loading.dismissAll()
           this.presentToast("Enviado com sucesso!");
-          this.error = JSON.stringify(res);
+          this.error = `Sucesso: ${JSON.stringify(res)}`;
         },(err)=>
         {
           this.loading.dismissAll()
           this.presentToast(`Ocorreu um erro ao enviar o comprovante.`);
-          this.error = JSON.stringify(err);
+          this.error = `Error: ${JSON.stringify(err)}`;
         })
     };
     reader.readAsArrayBuffer(file);
