@@ -64,7 +64,6 @@ displayNetworkUpdate(connectionState: string)
 
   public fromGallery()
   {
-    debugger;
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -91,9 +90,10 @@ displayNetworkUpdate(connectionState: string)
       {
       this.imageURI = imageData;
       this.uploadPhoto(imageData);
-    }, error => 
+      this.error = `Success: ${JSON.stringify(imageData)}`;
+    }, (err) => 
     {
-      this.error = JSON.stringify(error);
+      this.error = `Error: ${JSON.stringify(err)}`;
     });
   }
 
