@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
-import { NavController,Loading,ActionSheetController,Platform,LoadingController,ToastController } from 'ionic-angular';
-import { File,FileEntry } from '@ionic-native/file';
+import { NavController, Loading, ActionSheetController, Platform, LoadingController, ToastController } from 'ionic-angular';
+import { File, FileEntry } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
-import {ApiService} from '../../shared/http-service';
+import { ApiService } from '../../shared/http-service';
 import { Network } from '@ionic-native/network';
-import { Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage 
-{
+export class HomePage {
   lastImage: string = null;
   loading: Loading;
-  captureDataUrl:string;
-  error:string = "";
+  captureDataUrl: string;
+  error: string = "";
   imageURI: any;
   imageTitle: any;
 
@@ -24,94 +23,79 @@ export class HomePage
   disconnected: Subscription;
 
   constructor
-  (
-    public navCtrl: NavController, 
-    private camera: Camera, 
-    private file: File, 
-    public actionSheetCtrl: ActionSheetController, 
-    public toastCtrl: ToastController, 
-    public platform: Platform, 
+    (
+    public navCtrl: NavController,
+    private camera: Camera,
+    private file: File,
+    public actionSheetCtrl: ActionSheetController,
+    public toastCtrl: ToastController,
+    public platform: Platform,
     public loadingCtrl: LoadingController,
-    private api:ApiService,
+    private api: ApiService,
     private network: Network
-) 
-{  }
+    ) { }
 
-ionViewDidEnter() 
-{
-  this.connected  = this.network.onConnect().subscribe(data => 
-  {
-    this.displayNetworkUpdate(data.type);
-  }, error => console.error(error));
- 
-  this.disconnected  = this.network.onDisconnect().subscribe(data => 
-    {
-    this.displayNetworkUpdate(data.type);
+  ionViewDidEnter() {
+    this.connected = this.network.onConnect().subscribe(data => {
+      this.displayNetworkUpdate(data.type);
     }, error => console.error(error));
-}
 
-ionViewWillLeave()
-{
-  this.connected.unsubscribe();
-  this.disconnected.unsubscribe();
-}
+    this.disconnected = this.network.onDisconnect().subscribe(data => {
+      this.displayNetworkUpdate(data.type);
+    }, error => console.error(error));
+  }
 
-displayNetworkUpdate(connectionState: string)
-{
-  this.presentToast(`Status da conexão: ${connectionState}`);
-}
+  ionViewWillLeave() {
+    this.connected.unsubscribe();
+    this.disconnected.unsubscribe();
+  }
+
+  displayNetworkUpdate(connectionState: string) {
+    this.presentToast(`Status da conexão: ${connectionState}`);
+  }
 
 
-  public fromGallery()
-  {
+  public fromGallery() {
     this.camera.getPicture({
-      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       quality: 100,
-      encodingType: this.camera.EncodingType.JPEG,
-    }).then(imageData => 
-      {
-      this.imageURI = imageData;
+      encodingType: this.camera.EncodingType.JPEG
+    }).then(imageData => {
       this.uploadPhoto(imageData);
     }, error => {
       this.error = JSON.stringify(error);
     });
   }
 
-  public capturePhoto()
-  {
+  public capturePhoto() {
     this.camera.getPicture({
       quality: 100,
       sourceType: this.camera.PictureSourceType.CAMERA,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG
-    }).then(imageData => 
-      {
-      this.imageURI = imageData;
+    }).then(imageData => {
       this.uploadPhoto(imageData);
       this.error = `Success: ${JSON.stringify(imageData)}`;
-    }, (err) => 
-    {
-      this.error = `Error: ${JSON.stringify(err)}`;
-    });
+    }, (err) => {
+        this.error = `Error: ${JSON.stringify(err)}`;
+      });
   }
 
 
-  
-  private presentToast(text:string, position? :string) 
-  {
+
+  private presentToast(text: string, position?: string) {
     let toast = this.toastCtrl.create
-    ({
-      message: text,
-      duration: 3000,
-      position: position? position :'top'
-    });
+      ({
+        message: text,
+        duration: 3000,
+        position: position ? position : 'top'
+      });
     toast.present();
   }
-   
 
-  private uploadPhoto(imageFileUri: any): void 
-  {
+
+  private uploadPhoto(imageFileUri: any): void {
 
     this.error = null;
     this.loading = this.loadingCtrl.create({
@@ -123,29 +107,25 @@ displayNetworkUpdate(connectionState: string)
     this.file.resolveLocalFilesystemUrl(imageFileUri)
       .then(entry => (<FileEntry>entry).file(file => this.readFile(file)))
       .catch(err => console.log(err));
-  
+
   }
-  
-  private readFile(file: any) 
-  {
+
+  private readFile(file: any) {
     const reader = new FileReader();
 
-    reader.onloadend = () => 
-    {
+    reader.onloadend = () => {
       const formData = new FormData();
-      const imgBlob = new Blob([reader.result], {type: file.type});
+      const imgBlob = new Blob([reader.result], { type: file.type });
 
-     // this.imageURI = JSON.stringify(file);
+      // this.imageURI = JSON.stringify(file);
 
-        formData.append('imagem', imgBlob, file.name);
+      formData.append('imagem', imgBlob, file.name);
 
-        this.api.upload(formData).subscribe((res)=>
-        {
-          this.loading.dismissAll()
-          this.presentToast("Enviado com sucesso!");
-          this.error = `Sucesso: ${JSON.stringify(res)}`;
-        },(err)=>
-        {
+      this.api.upload(formData).subscribe((res) => {
+        this.loading.dismissAll()
+        this.presentToast("Enviado com sucesso!");
+        this.error = `Sucesso: ${JSON.stringify(res)}`;
+      }, (err) => {
           this.loading.dismissAll()
           this.presentToast(`Ocorreu um erro ao enviar o comprovante.`);
           this.error = `Error: ${JSON.stringify(err)}`;
