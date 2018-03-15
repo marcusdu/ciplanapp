@@ -63,7 +63,7 @@ ionViewWillLeave()
 displayNetworkUpdate(connectionState: string)
 {
   let networkType = this.network.type;
-  this.presentToast(`Status da conexão: ${connectionState}`, "bottom");
+  this.presentToast(`Status da conexão: ${connectionState}`);
 }
 
 
@@ -140,7 +140,7 @@ displayNetworkUpdate(connectionState: string)
       const formData = new FormData();
       const imgBlob = new Blob([reader.result], {type: file.type});
 
-      this.imageURI = JSON.stringify(file);
+     // this.imageURI = JSON.stringify(file);
 
         formData.append('imagem', imgBlob, file.name);
 
