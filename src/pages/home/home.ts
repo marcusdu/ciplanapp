@@ -85,7 +85,7 @@ displayNetworkUpdate(connectionState: string)
       destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.JPEG,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: false
     }).then(imageData => 
       {
       this.imageURI = imageData;
