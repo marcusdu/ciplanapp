@@ -65,7 +65,7 @@ displayNetworkUpdate(connectionState: string)
   public fromGallery()
   {
     this.camera.getPicture({
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
       destinationType: this.camera.DestinationType.FILE_URI,
       quality: 100,
       encodingType: this.camera.EncodingType.JPEG,
@@ -82,10 +82,9 @@ displayNetworkUpdate(connectionState: string)
   {
     this.camera.getPicture({
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: this.camera.PictureSourceType.CAMERA,
-      encodingType: this.camera.EncodingType.JPEG,
-      saveToPhotoAlbum: false
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG
     }).then(imageData => 
       {
       this.imageURI = imageData;
@@ -126,7 +125,7 @@ displayNetworkUpdate(connectionState: string)
       .catch(err => console.log(err));
   
   }
-
+  
   private readFile(file: any) 
   {
     const reader = new FileReader();
@@ -138,7 +137,7 @@ displayNetworkUpdate(connectionState: string)
 
      // this.imageURI = JSON.stringify(file);
 
-        formData.append('imagem', imgBlob, `image.jpg`);
+        formData.append('imagem', imgBlob, file.name);
 
         this.api.upload(formData).subscribe((res)=>
         {
